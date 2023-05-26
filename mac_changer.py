@@ -3,6 +3,7 @@ import optparse
 import re
 
 
+# changes the MAC address of interface to new_mac
 def change_mac(interface, new_mac):
     print(f"[+] Changing current MAC address of {interface} to new MAC address {new_mac} ...")
 
@@ -11,6 +12,7 @@ def change_mac(interface, new_mac):
     subprocess.call(["ifconfig", interface, "up"])
 
 
+# parses the command line arguments that include interface and name and new MAC address
 def get_args():
     parser = optparse.OptionParser()
     parser.add_option("-i", "--interface", dest="interface", help="Interface to change its MAC address")
@@ -23,6 +25,7 @@ def get_args():
     return values
 
 
+# returns the current MAC address of interface
 def get_mac_address(interface):
     ifconfig_output = subprocess.check_output(["ifconfig", interface])
     mac_add_search_output = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", ifconfig_output.decode("utf-8"))
